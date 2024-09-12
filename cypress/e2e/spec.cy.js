@@ -72,7 +72,7 @@ const user = {
   
     it('Navigates to the cart and removes the product', () => {
       cy.visit('https://www.sinsay.com/pl/pl/checkout/cart/');
-      cy.get('.cart-item').should('contain', product.sku);
+     cy.get('[data-selen="product-url]').should('contain', product.sku);
       cy.get('.remove-item-button').click();
       cy.get('.cart-empty').should('be.visible'); 
     });
