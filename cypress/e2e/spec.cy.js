@@ -28,10 +28,15 @@ const user = {
       cy.get('[data-selen="login-email"]').type(user.email);
       cy.get('[data-selen="login-password"]').type(user.invalidPassword);
       cy.get('[data-selen="login-submit"]').click();
-  
-
       cy.get('.sc-gYhhMS').should('contain', 'Niepoprawny login i/lub hasło.'); 
     });
+  });
+  it('Invalid Email Format', () => {
+    cy.visit('/customer/account/login');
+    cy.get('input[name="login[username]"]').type('abasd');
+    cy.get('input[name="login[password]"]').type(user.password);
+    cy.get('[data-selen="login-submit"]').click();
+    cy.get('.text-field__ErrorMessage-sc-1vll61a-5').should('be.visible');
   });
   
   describe('Product Search, Add to Cart, and Remove from Cart', () => {
@@ -72,7 +77,7 @@ const user = {
   
     it('Navigates to the cart and removes the product', () => {
       cy.visit('https://www.sinsay.com/pl/pl/checkout/cart/');
-     cy.get('[data-selen="product-url]').should('contain', product.sku);
+      cy.get('[data-selen="product-url]').should('contain', product.sku);
       cy.get('.remove-item-button').click();
       cy.get('.cart-empty').should('be.visible'); 
     });
